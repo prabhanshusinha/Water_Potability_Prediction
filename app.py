@@ -12,6 +12,25 @@ st.set_page_config(
     layout="wide"
 )
 
+st.markdown("""
+    <style>
+        /* Keep the Streamlit header and Deploy button visible */
+        header[data-testid="stHeader"] {
+            background: transparent;
+        }
+
+        /* Hide the three-dot menu if desired */
+        button[data-testid="stMainMenu"] {
+            display: none;
+        }
+
+        /* Reduce the extra top spacing */
+        .block-container {
+            padding-top: 1rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 st.image(
     "D:\streamlit\Water_Potability\ChatGPT Image Oct 14, 2026, 09_46_27 AM.png",
     use_container_width=True
