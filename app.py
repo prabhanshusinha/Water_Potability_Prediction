@@ -198,11 +198,13 @@ Trihalomethanes=st.sidebar.number_input(
     format="%.6f"
 )
 
-Trihalomethanes=st.sidebar.number_input(
-    "🧬Trihalomethanes (µg/L)",
+Turbidity=st.sidebar.number_input(
+    "🌊Turbidity (µg/L)",
     min_value=0.0,
-    max_value=150.0,
-    value=66.000000,
+    max_value=10.0,
+    value=3.000000,
     step=0.000001,
     format="%.6f"
 )
+
+st.sidebar.divider()
