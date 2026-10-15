@@ -97,27 +97,60 @@ st.markdown(
 st.divider()
 
 st.markdown("""
-    <style>
-    /* Sidebar background */
-    [data-testid="stSidebar"] {
-        background-color: #0B1F3A;
-    }
+<style>
 
-    /* Sidebar text */
-    [data-testid="stSidebar"] p,
-    [data-testid="stSidebar"] label,
-    [data-testid="stSidebar"] span {
-        color: white;
-    }
+/* 🌊 Colorful Sidebar Background */
+[data-testid="stSidebar"] {
+    background: linear-gradient(
+        180deg,
+        #FF512F 0%,
+        #DD2476 35%,
+        #6A11CB 70%,
+        #2575FC 100%
+    );
+}
 
-    /* Sidebar headings */
-    [data-testid="stSidebar"] h1,
-    [data-testid="stSidebar"] h2,
-    [data-testid="stSidebar"] h3 {
-        color: #00D4FF;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+/* Sidebar Text */
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] span {
+    color: #FFFFFF !important;
+}
+
+/* Sidebar Headings */
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: #00FFFF !important;
+    font-weight: bold;
+}
+
+/* Sidebar Input Fields */
+[data-testid="stSidebar"] input {
+    color: #FFFFFF !important;
+    background-color: rgba(10, 25, 47, 0.9) !important;
+    border: 1px solid #00D4FF !important;
+    border-radius: 8px;
+}
+
+/* Sidebar Button */
+[data-testid="stSidebar"] button {
+    background: linear-gradient(90deg, #00C9FF, #92FE9D);
+    color: #082032 !important;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+/* Sidebar Button Hover */
+[data-testid="stSidebar"] button:hover {
+    background: linear-gradient(90deg, #92FE9D, #00C9FF);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 st.sidebar.title("🧪 Details About Water Sample ")
 st.sidebar.write("🔬 Enter The Water Sample Parameter !!")
@@ -274,16 +307,15 @@ st.markdown(
 st.divider()
 
 st.markdown("""
-<h3 style="
-    color: #00CED1;
-    background: rgba(3, 37, 65, 0.9);
-    padding: 12px 18px;
-    border-left: 5px solid #00D4FF;
-    border-radius: 8px;
-    margin-bottom: 15px;
+<div style="
+    background: linear-gradient(135deg, #06C2A9, #123F63);
+    padding: 5px;
+    border-radius: 15px;
+    border: 1px solid #00D4FF;
+    margin-bottom: 20px;
 ">
-    🧠 About the Model
-</h3>
+    <h3 style="color:#00D4FF; margin :0;"> 🧠 About the Model</h3>
+</div>
 """, unsafe_allow_html=True)
 
 # _________________________________About MODEL___________________________________________________________
@@ -293,8 +325,8 @@ col1, col2, col3 = st.columns(3, gap="medium")
 with col1:
     st.markdown("""
     <div style="
-        background: linear-gradient(135deg, #0B2545, #123F63);
-        padding: 20px;
+        background: linear-gradient(135deg, #F54927, #123F63);
+        padding: 15px;
         border-radius: 15px;
         border: 1px solid #00D4FF;
         min-height: 260px;
@@ -319,7 +351,7 @@ with col2:
     st.markdown("""
 
     <div style="
-        background: linear-gradient(135deg, #0B2545, #123F63);
+        background: linear-gradient(135deg, #11D9D6, #123F63);
         padding: 20px;
         border-radius: 15px;
         border: 1px solid #00D4FF;
@@ -342,7 +374,7 @@ with col2:
 with col3:
     st.markdown("""
     <div style="
-        background: linear-gradient(135deg, #0B2545, #123F63);
+        background: linear-gradient(135deg, #AC06C2, #123F63);
         padding: 20px;
         border-radius: 15px;
         border: 1px solid #00D4FF;
