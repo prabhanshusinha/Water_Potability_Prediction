@@ -4,7 +4,10 @@ import joblib
 import base64
 
 
-model =joblib.load("D:\streamlit\Water_Potability\Water_Potability_prediction.joblib")
+model = joblib.load(
+    "Water_Potability_prediction.joblib"
+)
+
 
 st.set_page_config(
     page_title="WATER POTABILITY PREDICTION",
@@ -33,16 +36,60 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.image(
-    "D:\streamlit\Water_Potability\ChatGPT Image Oct 14, 2026, 09_46_27 AM.png",
+    "D:\streamlit\Water_Potability\image3.png",
     use_container_width=True
 )
 
-def set_background(image_path): 
-     with open(image_path, "rb") as image: 
-        encoded_image = base64.b64encode(image.read()).decode() 
-        st.markdown( f""" <style> .stApp {{ background-image: url("data:image/png;base64,{encoded_image}"); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }} .block-container {{ padding-top: 2rem; }} [data-testid="stSidebar"] {{ background-color: rgba(230, 245, 255, 0.95); }} h1, h2, h3 {{ color: #075985; }} </style> """, unsafe_allow_html=True ) 
-        
-set_background("D:\streamlit\Water_Potability\ChatGPT Image Oct 14, 2026, 09_52_46 AM.png")
+# Function to set the background image
+def set_background(image_path):
+    with open(image_path, "rb") as image:
+        encoded_image = base64.b64encode(image.read()).decode()
+
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/png;base64,{encoded_image}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
+
+        .block-container {{
+            padding-top: 2rem;
+        }}
+
+        [data-testid="stSidebar"] {{
+            background-color: rgba(230, 245, 255, 0.95);
+        }}
+
+        h1, h2, h3 {{
+            color: #075985;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+# Select the background image based on the prediction
+if "prediction_result" not in st.session_state:
+    st.session_state.prediction_result = None
+
+if st.session_state.prediction_result == 1:
+    set_background(
+        r"D:\streamlit\Water_Potability\image1.png"
+    )
+
+elif st.session_state.prediction_result == 0:
+    set_background(
+        r"D:\streamlit\Water_Potability\image1.png"
+    )
+
+else:
+    set_background(
+        r"D:\streamlit\Water_Potability\image2.png"
+    )
 
 st.markdown(
     """
@@ -153,7 +200,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.sidebar.title("🧪 Details About Water Sample ")
-st.sidebar.write("🔬 Enter The Water Sample Parameter !!")
+st.sidebar.write("🔬Enter The Water Sample Parameter")
 
 st.sidebar.divider()
 
@@ -242,18 +289,39 @@ Turbidity=st.sidebar.number_input(
 )
 
 st.sidebar.divider()
-
 predict_buttom=st.sidebar.button(
     "🔍 Predict Water Potability",
     use_container_width=True
 )
-
 # ============================================================
 # MAIN AREA
 # ============================================================
-
 if predict_buttom:
-    pass
+    # Create input DataFrame
+    input_data = pd.DataFrame({
+        "ph": [ph],
+        "Hardness": [Hardness],
+        "Solids": [Solids],
+        "Chloramines": [Chloramines],
+        "Sulfate": [Sulfate],
+        "Conductivity": [Conductivity],
+        "Organic_carbon": [Organic_carbon],
+        "Trihalomethanes": [Trihalomethanes],
+        "Turbidity": [Turbidity]
+    })
+    # Make prediction
+    prediction = model.predict(input_data)
+    prediction_label = int(prediction[0])
+    # Store prediction for background selection
+    st.session_state.prediction_result = prediction_label
+    # Display result
+    if prediction_label == 1:
+        st.success("✅ Water is Potable!")
+    else:
+        st.error("❌ Water is Not Potable!")
+    st.rerun()
+
+    
 
 else:
     st.markdown("""
@@ -394,3 +462,54 @@ with col3:
         ❌ 0 — Not Potable (Unsuitable for Drinking)
     </p>
     """, unsafe_allow_html=True)
+
+st.markdown(
+    """
+    <hr style="
+        height: 3px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            #00CED1,
+            #38BDF8,
+            transparent
+        );
+        border: none;
+        margin: 30px 0;
+    ">
+    """,
+    unsafe_allow_html=True
+)
+
+st.subheader("📈 Machine Learning Dashboard")
+
+st.image("D:\streamlit\Water_Potability\image4.png",caption="Water Sample Poatability Prediction — Data Analytics Dashboard",use_container_width=True)
+
+st.markdown(
+    """
+    <hr style="
+        height: 3px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            #00CED1,
+            #38BDF8,
+            transparent
+        );
+        border: none;
+        margin: 30px 0;
+    ">
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown("""
+<p style="
+    color: #7D06C2;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 600;
+">
+    Built with Python • Pandas • Scikit-learn • Random Forest • Streamlit
+</p>
+""", unsafe_allow_html=True)
