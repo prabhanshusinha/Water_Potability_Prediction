@@ -161,8 +161,8 @@ A suggested repository layout:
 
 1️⃣ Clone the Repository
 
-git clone <YOUR_GITHUB_REPOSITORY_URL>
-cd <YOUR_PROJECT_FOLDER>
+git clone <GITHUB_REPOSITORY_URL>
+cd <PROJECT_FOLDER>
 
 Replace the placeholders with your actual GitHub repository URL and folder name.
 
