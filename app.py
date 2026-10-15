@@ -12,6 +12,7 @@ st.set_page_config(
     layout="wide"
 )
 
+
 st.markdown("""
     <style>
         /* Keep the Streamlit header and Deploy button visible */
@@ -208,3 +209,156 @@ Turbidity=st.sidebar.number_input(
 )
 
 st.sidebar.divider()
+
+predict_buttom=st.sidebar.button(
+    "🔍 Predict Water Potability",
+    use_container_width=True
+)
+
+# ============================================================
+# MAIN AREA
+# ============================================================
+
+if predict_buttom:
+    pass
+
+else:
+    st.markdown("""
+    <div style="
+        background: linear-gradient(
+            135deg,
+            rgba(3, 37, 65, 0.95),
+            rgba(8, 80, 110, 0.92)
+        );
+        padding: 20px 25px;
+        border-radius: 15px;
+        border: 1px solid #00D4FF;
+        box-shadow: 0 0 18px rgba(0, 212, 255, 0.25);
+        text-align: center;
+        margin-top: 25px;
+    ">
+        <p style="
+            color: #FFFFFF;
+            font-size: 17px;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.8;
+        ">
+            👈 Enter the water sample parameters in the sidebar
+            <br>
+            <span style="color: #67E8F9;">
+                Click Predict Water Potability to get your prediction.
+            </span>
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown(
+    """
+    <hr style="
+        height: 3px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            #00CED1,
+            #38BDF8,
+            transparent
+        );
+        border: none;
+        margin: 30px 0;
+    ">
+    """,
+    unsafe_allow_html=True
+)
+
+st.divider()
+
+st.markdown("""
+<h3 style="
+    color: #00CED1;
+    background: rgba(3, 37, 65, 0.9);
+    padding: 12px 18px;
+    border-left: 5px solid #00D4FF;
+    border-radius: 8px;
+    margin-bottom: 15px;
+">
+    🧠 About the Model
+</h3>
+""", unsafe_allow_html=True)
+
+# _________________________________About MODEL___________________________________________________________
+
+col1, col2, col3 = st.columns(3, gap="medium")
+
+with col1:
+    st.markdown("""
+    <div style="
+        background: linear-gradient(135deg, #0B2545, #123F63);
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid #00D4FF;
+        min-height: 260px;
+    ">
+    <h3 style="color:#00D4FF;">📊 Dataset</h3>
+
+    <p style="color:#FFFFFF; font-weight:bold;">
+        Water Potability Dataset
+    </p>
+
+    <p style="color:#FFFFFF; line-height:1.8;">
+        Used to predict water potability based on various
+        water quality parameters and chemical properties.
+    </p>
+
+    <p style="color:#00D4FF;">
+        💧 9 Water Quality Features
+    </p>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+
+    <div style="
+        background: linear-gradient(135deg, #0B2545, #123F63);
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid #00D4FF;
+        min-height: 260px;
+    ">
+
+    <h3 style="color:#00D4FF;">🌲 Model</h3>
+    <p style="color:#FFFFFF; font-weight:bold;">
+        Random Forest Classifier
+    </p>
+    <p style="color:#FFFFFF; line-height:1.8;">
+        The trained preprocessing pipeline is stored
+        together with the model in the .joblib file.
+    </p>
+    <p style="color:#00D4FF;">
+        🤖 Machine Learning Classification
+    </p>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+    <div style="
+        background: linear-gradient(135deg, #0B2545, #123F63);
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid #00D4FF;
+        min-height: 260px;
+    ">
+    <h3 style="color:#00D4FF;">🎯 Prediction</h3>
+
+    <p style="color:#FFFFFF; line-height:1.8;">
+        The model predicts one of the following:
+    </p>
+
+    <p style="color:#4ADE80; font-weight:bold;">
+        ✅ 1 — Potable (Suitable for Drinking)
+    </p>
+
+    <p style="color:#FDA4AF; font-weight:bold;">
+        ❌ 0 — Not Potable (Unsuitable for Drinking)
+    </p>
+    """, unsafe_allow_html=True)
