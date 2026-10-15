@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import joblib
 import base64
+import sklearn
+import plotly.express as px
 
 
 model = joblib.load(
@@ -36,7 +38,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.image(
-    "D:\streamlit\Water_Potability\image3.png",
+    r"D:\streamlit\Water_Potability\assets\image3.png",
     use_container_width=True
 )
 
@@ -78,17 +80,17 @@ if "prediction_result" not in st.session_state:
 
 if st.session_state.prediction_result == 1:
     set_background(
-        r"D:\streamlit\Water_Potability\image1.png"
+        r"D:\streamlit\Water_Potability\assets\image1.png"
     )
 
 elif st.session_state.prediction_result == 0:
     set_background(
-        r"D:\streamlit\Water_Potability\image1.png"
+        r"D:\streamlit\Water_Potability\assets\image1.png"
     )
 
 else:
     set_background(
-        r"D:\streamlit\Water_Potability\image2.png"
+        r"D:\streamlit\Water_Potability\assets\image2.png"
     )
 
 st.markdown(
@@ -316,12 +318,163 @@ if predict_buttom:
     st.session_state.prediction_result = prediction_label
     # Display result
     if prediction_label == 1:
-        st.success("✅ Water is Potable!")
-    else:
-        st.error("❌ Water is Not Potable!")
-    st.rerun()
+        st.markdown("""
+            <div style="
+                background: linear-gradient(135deg, #064E3B, #047857);
+                padding: 30px;
+                border-radius: 20px;
+                border: 2px solid #34D399;
+                box-shadow: 0 0 25px rgba(52, 211, 153, 0.45);
+                text-align: center;
+                margin-top: 25px;
+                margin-bottom: 25px;
+            ">
+                <div style="font-size: 55px;">💧</div>
+                <h2 style="color: #FFFFFF; margin-bottom: 10px;">
+                    Water is Potable!
+                </h2>
+                <p style="
+                    color: #D1FAE5;
+                    font-size: 18px;
+                    margin-bottom: 15px;
+                ">
+                    The model predicts that this water sample is suitable
+                    for drinking based on the supplied parameters.
+                </p>
+                <span style="
+                    background: #34D399;
+                    color: #064E3B;
+                    padding: 8px 20px;
+                    border-radius: 20px;
+                    font-weight: bold;
+                ">
+                    PREDICTION: POTABLE
+                </span>
+            </div>
+            """, unsafe_allow_html=True)
 
-    
+    else:
+        st.markdown("""
+        <div style="
+            background: linear-gradient(135deg, #7F1D1D, #991B1B);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid #F87171;
+            box-shadow: 0 0 25px rgba(248, 113, 113, 0.4);
+            text-align: center;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        ">
+            <div style="font-size: 55px;">⚠️</div>
+            <h2 style="color: #FFFFFF; margin-bottom: 10px;">
+                Water is Not Potable!
+            </h2>
+            <p style="
+                color: #FEE2E2;
+                font-size: 18px;
+                margin-bottom: 15px;
+            ">
+                The model predicts that this water sample is unsuitable
+                for drinking based on the supplied parameters.
+            </p>
+            <span style="
+                background: #F87171;
+                color: #450A0A;
+                padding: 8px 20px;
+                border-radius: 20px;
+                font-weight: bold;
+            ">
+                PREDICTION: NOT POTABLE
+            </span>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("""
+        <div style="
+            background: rgba(5, 35, 60, 0.92);
+            color: #FFFFFF;
+            padding: 14px 20px;
+            border-radius: 12px;
+            border-left: 5px solid #00D4FF;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            font-size: 15px;
+            line-height: 1.7;
+            text-align: center;
+        ">
+            ⚕️ <b>Safety Disclaimer:</b>
+            Machine learning predictions are estimates, not proof of drinking-water safety.
+            Laboratory testing is required to verify drinking-water safety.
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("## 📊 Water Quality Analytics")
+
+    quality_data = pd.DataFrame({
+        "Parameter": [
+            "pH",
+            "Hardness",
+            "Solids",
+            "Chloramines",
+            "Sulfate",
+            "Conductivity",
+            "Organic Carbon",
+            "Trihalomethanes",
+            "Turbidity"
+        ],
+        "Value": [
+            ph,
+            Hardness,
+            Solids,
+            Chloramines,
+            Sulfate,
+            Conductivity,
+            Organic_carbon,
+            Trihalomethanes,
+            Turbidity
+        ]
+    })
+
+    fig = px.bar(
+        quality_data,
+        x="Parameter",
+        y="Value",
+        title="Water Sample Parameters",
+        text="Value",
+        template="plotly_dark"
+    )
+
+    fig.update_layout(
+        title_x=0.5,
+        xaxis_title="Water Quality Parameters",
+        yaxis_title="Entered Value",
+        height=450
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+    st.markdown(
+    """
+        <hr style="
+            height: 3px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                #00CED1,
+                #38BDF8,
+                transparent
+            );
+            border: none;
+            margin: 30px 0;
+        ">
+        """,
+        unsafe_allow_html=True)
+
+    st.subheader("📋 Input Summary")
+    st.dataframe(
+        quality_data,
+        use_container_width=True,
+        hide_index=True
+    )
 
 else:
     st.markdown("""
@@ -463,6 +616,128 @@ with col3:
     </p>
     """, unsafe_allow_html=True)
 
+# ============================================================
+# DATASET ANALYSIS DASHBOARD
+# ============================================================
+st.markdown("## 📊 Dataset Analysis")
+
+# IMPORTANT: Change this path if your training CSV has a different name/location.
+DATASET_PATH = r"D:\streamlit\Water_Potability\water_potability.csv"
+
+try:
+    @st.cache_data
+    def load_dataset(path):
+        return pd.read_csv(path)
+
+    df_analysis = load_dataset(DATASET_PATH)
+
+    if "Potability" not in df_analysis.columns:
+        st.warning("Dataset analysis needs a 'Potability' column. Check your CSV column names.")
+    else:
+        total_records = len(df_analysis)
+        feature_count = len([c for c in df_analysis.columns if c != "Potability"])
+        missing_count = int(df_analysis.isna().sum().sum())
+        potable_count = int((df_analysis["Potability"] == 1).sum())
+        not_potable_count = int((df_analysis["Potability"] == 0).sum())
+
+        metric1, metric2, metric3, metric4 = st.columns(4)
+        metric1.metric("📁 Total Records", f"{total_records:,}")
+        metric2.metric("🧪 Water Features", feature_count)
+        metric3.metric("💧 Potable Samples", f"{potable_count:,}")
+        metric4.metric("🔍 Missing Values", f"{missing_count:,}")
+
+        st.markdown("### 💧 Potability Distribution")
+        class_data = pd.DataFrame({
+            "Water Quality": ["Not Potable", "Potable"],
+            "Samples": [not_potable_count, potable_count]
+        })
+        class_fig = px.pie(
+            class_data,
+            names="Water Quality",
+            values="Samples",
+            hole=0.55,
+            color="Water Quality",
+            color_discrete_map={"Potable": "#00C9A7", "Not Potable": "#FF4B4B"},
+            title="Potable vs. Non-Potable Samples"
+        )
+        class_fig.update_traces(textposition="inside", textinfo="label+percent+value")
+        class_fig.update_layout(template="plotly_dark", title_x=0.5)
+        st.plotly_chart(class_fig, width="stretch")
+
+        feature_options = [
+            c for c in ["ph", "Hardness", "Solids", "Chloramines", "Sulfate",
+                        "Conductivity", "Organic_carbon", "Trihalomethanes", "Turbidity"]
+            if c in df_analysis.columns
+        ]
+
+        if feature_options:
+            st.markdown("### 📈 Explore a Water-Quality Feature")
+            selected_feature = st.selectbox(
+                "Choose a parameter",
+                feature_options,
+                key="dataset_feature_select"
+            )
+            distribution_fig = px.histogram(
+                df_analysis,
+                x=selected_feature,
+                color="Potability",
+                nbins=40,
+                barmode="overlay",
+                opacity=0.7,
+                color_discrete_map={0: "#FF4B4B", 1: "#00C9A7"},
+                title=f"{selected_feature} Distribution by Potability"
+            )
+            distribution_fig.update_layout(
+                template="plotly_dark", title_x=0.5,
+                xaxis_title=selected_feature, yaxis_title="Number of Samples"
+            )
+            st.plotly_chart(distribution_fig, width="stretch")
+
+        st.markdown("### 🔥 Feature Correlation Heatmap")
+        numeric_data = df_analysis.select_dtypes(include="number")
+        if numeric_data.shape[1] >= 2:
+            corr_fig = px.imshow(
+                numeric_data.corr(),
+                text_auto=".2f",
+                aspect="auto",
+                color_continuous_scale="RdBu_r",
+                zmin=-1,
+                zmax=1,
+                title="Correlation Between Numeric Features"
+            )
+            corr_fig.update_layout(template="plotly_dark", title_x=0.5, height=650)
+            st.plotly_chart(corr_fig, width="stretch")
+        else:
+            st.info("Not enough numeric columns to calculate correlations.")
+
+        st.markdown("### 🔍 Missing Values by Column")
+        missing_data = df_analysis.isna().sum().rename_axis("Feature").reset_index(name="Missing Values")
+        missing_data = missing_data[missing_data["Missing Values"] > 0].sort_values(
+            "Missing Values", ascending=False
+        )
+        if missing_data.empty:
+            st.success("No missing values found in this dataset.")
+        else:
+            missing_fig = px.bar(
+                missing_data,
+                x="Feature",
+                y="Missing Values",
+                text="Missing Values",
+                title="Missing Values by Feature",
+                color="Missing Values",
+                color_continuous_scale=["#00D4FF", "#FF4B4B"]
+            )
+            missing_fig.update_layout(template="plotly_dark", title_x=0.5)
+            st.plotly_chart(missing_fig, width="stretch")
+
+except FileNotFoundError:
+    st.warning(
+        "Dataset analysis is not loaded. Set DATASET_PATH to the actual location "
+        "of your water potability CSV file."
+    )
+except Exception as exc:
+    st.error(f"Could not load dataset analysis: {exc}")
+
 st.markdown(
     """
     <hr style="
@@ -483,7 +758,7 @@ st.markdown(
 
 st.subheader("📈 Machine Learning Dashboard")
 
-st.image("D:\streamlit\Water_Potability\image4.png",caption="Water Sample Poatability Prediction — Data Analytics Dashboard",use_container_width=True)
+st.image(r"D:\streamlit\Water_Potability\assets\image4.png",caption="Water Sample Poatability Prediction — Data Analytics Dashboard",use_container_width=True)
 
 st.markdown(
     """
