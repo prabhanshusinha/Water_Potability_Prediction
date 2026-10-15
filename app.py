@@ -171,3 +171,38 @@ Sulfate=st.sidebar.number_input(
     format="%.6f"
 )
 
+Conductivity=st.sidebar.number_input(
+    "⚡Conductivity (μS/cm)",
+    min_value=0.0,
+    max_value=1500.0,
+    value=60.000000,
+    step=0.000001,
+    format="%.6f"
+)
+
+Organic_carbon=st.sidebar.number_input(
+    "🌿Organic_carbon (mg/L)",
+    min_value=0.0,
+    max_value=30.0,
+    value=14.000000,
+    step=0.000001,
+    format="%.6f"
+)
+
+Trihalomethanes=st.sidebar.number_input(
+    "🧬Trihalomethanes (µg/L)",
+    min_value=0.0,
+    max_value=150.0,
+    value=66.000000,
+    step=0.000001,
+    format="%.6f"
+)
+
+Trihalomethanes=st.sidebar.number_input(
+    "🧬Trihalomethanes (µg/L)",
+    min_value=0.0,
+    max_value=150.0,
+    value=66.000000,
+    step=0.000001,
+    format="%.6f"
+)
